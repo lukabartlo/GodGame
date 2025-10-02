@@ -794,10 +794,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   terrain: {fileID: 1400168702}
   resolution: 512
-  scale: 8
-  heightMultiplier: 0.15
+  scale: 2
+  heightMultiplier: 0.75
   offsetX: 100
   offsetY: 100
+  terrainLayers:
+  - {fileID: 8574412962073106934, guid: 8080179d4ec27554ea0dc510be0c256f, type: 2}
+  - {fileID: 8574412962073106934, guid: 14a47398226affb43b051e392e1eef3d, type: 2}
+  - {fileID: 8574412962073106934, guid: 8ee3b992717caab40a456fcf30a5163e, type: 2}
+  - {fileID: 8574412962073106934, guid: 43920221ce29cd14580a986cde8e815b, type: 2}
 --- !u!1 &2013410473
 GameObject:
   m_ObjectHideFlags: 1

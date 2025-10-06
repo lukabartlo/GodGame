@@ -795,14 +795,22 @@ MonoBehaviour:
   terrain: {fileID: 1400168702}
   resolution: 512
   scale: 2
-  heightMultiplier: 0.75
+  heightMultiplier: 0.35
+  randomizeOffset: 1
   offsetX: 100
   offsetY: 100
   terrainLayers:
   - {fileID: 8574412962073106934, guid: 8080179d4ec27554ea0dc510be0c256f, type: 2}
-  - {fileID: 8574412962073106934, guid: 14a47398226affb43b051e392e1eef3d, type: 2}
-  - {fileID: 8574412962073106934, guid: 8ee3b992717caab40a456fcf30a5163e, type: 2}
+  - {fileID: 8574412962073106934, guid: 97ed9c312d3a3b1489ee1850701e6fc8, type: 2}
+  - {fileID: 8574412962073106934, guid: 9feadb3dc39ae60479d81fc43532457c, type: 2}
   - {fileID: 8574412962073106934, guid: 43920221ce29cd14580a986cde8e815b, type: 2}
+  treePrefabs:
+  - {fileID: 137650, guid: 826b6a0b570e8460990010fa615b5a2a, type: 3}
+  - {fileID: 192044, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
+  - {fileID: 191266, guid: c44bd9bdc114d4a60932c0087d9d1732, type: 3}
+  treeCount: 2000
+  grassLayerThreshold: 0.25
+  maxSlope: 30
 --- !u!1 &2013410473
 GameObject:
   m_ObjectHideFlags: 1

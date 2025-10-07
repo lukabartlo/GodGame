@@ -10,15 +10,16 @@ public class PerlinTerrain : MonoBehaviour
     [SerializeField] private bool randomizeOffset = true; 
     [SerializeField] private float offsetX = 100f;
     [SerializeField] private float offsetY = 100f;
+    [SerializeField, Range(0f, 1f)] private float noiseThreshold;
 
     [Header("Textures by height")]
     [SerializeField] private TerrainLayer[] terrainLayers;
 
     [Header("Vegetation")]
-    [SerializeField] private GameObject[] treePrefabs; 
-    [SerializeField] private int treeCount = 200;
-    [SerializeField, Range(0f, 1f)] private float grassLayerThreshold;
+    [SerializeField] private GameObject[] treePrefabs;
+    [SerializeField] private int treeCount;
     [SerializeField] private float maxSlope = 30f;       
+    [SerializeField, Range(0f, 1f)] private float vegetationSpawnGrassThreshold;       
 
     void Start()
     {
@@ -103,42 +104,88 @@ public class PerlinTerrain : MonoBehaviour
 
     void SpawnVegetation()
     {
-        if (treePrefabs == null || treePrefabs.Length == 0) return;
-
         TerrainData terrainData = terrain.terrainData;
         int width = terrainData.alphamapWidth;
         int height = terrainData.alphamapHeight;
-        float[,,] splatmapData = terrainData.GetAlphamaps(0, 0, width, height);
-
-        int spawned = 0;
-        int maxAttempts = treeCount * 5;
-
-        for (int attempts = 0; attempts < maxAttempts && spawned < treeCount; attempts++)
+        var treePositions = new System.Collections.Generic.List<Vector3>();
+        int spawnedTree = 0;
+        int targetLayer = 1;
+        
+        for (int x = 0; x < width && spawnedTree < treeCount; x++)
         {
-            int x = Random.Range(0, width);
-            int y = Random.Range(0, height);
-
-            float grassWeight = splatmapData[x, y, 1];
-
-            if (grassWeight > grassLayerThreshold)
+            for (int y = 0; y < height && spawnedTree < treeCount; y++)
             {
-                float normX = (float)x / (width - 1);
-                float normY = (float)y / (height - 1);
+                Vector3 worldPos = new Vector3(
+                    x * terrainData.size.x / width,
+                    0,
+                    y * terrainData.size.z / height
+                );
+                worldPos.y = terrain.SampleHeight(worldPos) + terrain.GetPosition().y;
 
-                float steepness = terrainData.GetSteepness(normX, normY);
-                if (steepness > maxSlope) continue;
-
-                float worldX = normX * terrainData.size.x + Random.Range(-1f, 1f);
-                float worldZ = normY * terrainData.size.z + Random.Range(-1f, 1f);
-                float worldY = terrain.SampleHeight(new Vector3(worldX, 0, worldZ));
-
-                Vector3 pos = new Vector3(worldX, worldY, worldZ);
-
-                GameObject prefab = treePrefabs[Random.Range(0, treePrefabs.Length)];
-                Instantiate(prefab, pos, Quaternion.identity, terrain.transform);
-
-                spawned++;
+                if (IsGrass(worldPos))
+                {
+                    float noise = Mathf.PerlinNoise(x / scale, y / scale);
+                    if (noise > noiseThreshold)
+                    {
+                        bool tooClose = false;
+                        foreach (var pos in treePositions)
+                        {
+                            if (Vector3.Distance(pos, worldPos) < 5)
+                            {
+                                tooClose = true;
+                                break;
+                            }
+                        }
+                        if (!tooClose)
+                        {
+                            Instantiate(treePrefabs[Random.Range(0,treePrefabs.Length)], worldPos, Quaternion.identity);
+                            treePositions.Add(worldPos);
+                            spawnedTree++;
+                        }
+                    }
+                }
             }
         }
+    }
+    
+    public int GetMainTextureIndex(Vector3 worldPos)
+    {
+        TerrainData terrainData = terrain.terrainData;
+        Vector3 terrainPos = worldPos - terrain.transform.position;
+
+        int mapX = Mathf.FloorToInt((terrainPos.x / terrainData.size.x) * terrainData.alphamapWidth);
+        int mapZ = Mathf.FloorToInt((terrainPos.z / terrainData.size.z) * terrainData.alphamapHeight);
+
+        float[,,] splatmap = terrainData.GetAlphamaps(mapX, mapZ, 1, 1);
+
+        float max = 0;
+        int index = 0;
+
+        for (int i = 0; i < splatmap.GetLength(2); i++)
+        {
+            if (splatmap[0, 0, i] > max)
+            {
+                max = splatmap[0, 0, i];
+                index = i;
+            }
+        }
+
+        return index; 
+    }
+
+    public bool IsGrass(Vector3 worldPos)
+    {
+        TerrainData terrainData = terrain.terrainData;
+        Vector3 terrainPos = worldPos - terrain.transform.position;
+
+        int mapX = Mathf.FloorToInt((terrainPos.x / terrainData.size.x) * terrainData.alphamapWidth);
+        int mapZ = Mathf.FloorToInt((terrainPos.z / terrainData.size.z) * terrainData.alphamapHeight);
+
+        float[,,] splatmap = terrainData.GetAlphamaps(mapX, mapZ, 1, 1);
+
+        int targetIndex = 1; //grass
+        float targetTreshold = 0.95f; //target a depasser
+
+        return splatmap[0, 0, targetIndex] > targetTreshold;
     }
 }

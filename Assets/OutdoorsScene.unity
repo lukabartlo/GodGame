@@ -795,10 +795,11 @@ MonoBehaviour:
   terrain: {fileID: 1400168702}
   resolution: 512
   scale: 2
-  heightMultiplier: 0.35
+  heightMultiplier: 0.45
   randomizeOffset: 1
   offsetX: 100
   offsetY: 100
+  noiseThreshold: 0.9
   terrainLayers:
   - {fileID: 8574412962073106934, guid: 8080179d4ec27554ea0dc510be0c256f, type: 2}
   - {fileID: 8574412962073106934, guid: 97ed9c312d3a3b1489ee1850701e6fc8, type: 2}
@@ -808,9 +809,9 @@ MonoBehaviour:
   - {fileID: 137650, guid: 826b6a0b570e8460990010fa615b5a2a, type: 3}
   - {fileID: 192044, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
   - {fileID: 191266, guid: c44bd9bdc114d4a60932c0087d9d1732, type: 3}
-  treeCount: 2000
-  grassLayerThreshold: 0.25
+  treeCount: 20000
   maxSlope: 30
+  vegetationSpawnGrassThreshold: 0.85
 --- !u!1 &2013410473
 GameObject:
   m_ObjectHideFlags: 1

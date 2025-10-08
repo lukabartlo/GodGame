@@ -809,9 +809,15 @@ MonoBehaviour:
   - {fileID: 137650, guid: 826b6a0b570e8460990010fa615b5a2a, type: 3}
   - {fileID: 192044, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
   - {fileID: 191266, guid: c44bd9bdc114d4a60932c0087d9d1732, type: 3}
-  treeCount: 20000
-  maxSlope: 30
-  vegetationSpawnGrassThreshold: 0.85
+  bushPrefabs:
+  - {fileID: 919132149155446097, guid: 2bba0977e1d4c9c48acb91eca974675e, type: 3}
+  - {fileID: 919132149155446097, guid: 9284db406866aed49b754945a34e1f82, type: 3}
+  - {fileID: 919132149155446097, guid: e677c3dfd713e3b4ab217cc1c32d18cd, type: 3}
+  treeCount: 2000
+  bushCount: 2000
+  maxSlope: 60
+  plantsOffsetX: 0
+  plantsOffsetY: 0
 --- !u!1 &2013410473
 GameObject:
   m_ObjectHideFlags: 1

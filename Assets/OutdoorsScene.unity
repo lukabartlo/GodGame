@@ -799,7 +799,7 @@ MonoBehaviour:
   randomizeOffset: 1
   offsetX: 100
   offsetY: 100
-  noiseThreshold: 0.9
+  noiseThreshold: 0.975
   terrainLayers:
   - {fileID: 8574412962073106934, guid: 8080179d4ec27554ea0dc510be0c256f, type: 2}
   - {fileID: 8574412962073106934, guid: 97ed9c312d3a3b1489ee1850701e6fc8, type: 2}

@@ -2,19 +2,12 @@ using UnityEngine;
 
 public abstract class Abilities : MonoBehaviour
 {
+
+    public bool isUsing;
     
-    public virtual void Capacity()
-    {
-        
-    }
+    public abstract void Capacity();
 
-    public virtual void StartUsing()
-    {
-        
-    }
+    public abstract void StartUsing();
 
-    public virtual void StopUsing()
-    {
-        
-    }
+    public abstract void StopUsing();
 }

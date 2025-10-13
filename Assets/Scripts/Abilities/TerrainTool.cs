@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class TerrainEditor : Abilities
 {
-    public Terrain terrain;                // the Terrain component
-    public float brushSize = 5f;           // in world units
-    public float strength = 0.5f;          // how fast raise/lower (units per second)
-    public bool lower = false;             // flag: raise or lower
+    public Terrain terrain;
+    public float brushSize = 5f;
+    public float strength = 0.5f;
+    public bool lower = false;
 
+    private InputSystem_Actions _cameraActions;
+    
     TerrainData terrainData;
     int heightmapWidth;
     int heightmapHeight;
@@ -20,19 +22,13 @@ public class TerrainEditor : Abilities
 
     void Update()
     {
-        if (Input.GetMouseButton(0))  // e.g. left-click to terraform
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                ModifyTerrain(hit.point);
-            }
-        }
+        if(isUsing)
+            Capacity();
     }
 
     void ModifyTerrain(Vector3 worldPoint)
     {
-        // Convert world point to terrain local coordinates (0..1)
+        
         Vector3 terrainPos = worldPoint - terrain.transform.position;
         Vector3 normalized = new Vector3(
             terrainPos.x / terrainData.size.x,
@@ -43,7 +39,7 @@ public class TerrainEditor : Abilities
         int cx = (int)(normalized.x * (heightmapWidth - 1));
         int cz = (int)(normalized.z * (heightmapHeight - 1));
 
-        // Determine how many heightmap samples your brush covers
+    
         float worldToHeight = (heightmapWidth - 1) / terrainData.size.x;
         int radius = Mathf.RoundToInt(brushSize * worldToHeight);
 
@@ -75,5 +71,27 @@ public class TerrainEditor : Abilities
         // Write back
         terrainData.SetHeights(x0, z0, heights);
         // If using SetHeightsDelayLOD variant, you would call SyncHeightmap after finishing editing.
+    }
+
+    public override void Capacity()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                ModifyTerrain(hit.point);
+            }
+        }
+    }
+
+    public override void StartUsing()
+    {
+        isUsing = true;
+    }
+
+    public override void StopUsing()
+    {
+        isUsing = false;
     }
 }

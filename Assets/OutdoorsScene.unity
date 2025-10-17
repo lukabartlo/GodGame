@@ -416,12 +416,8 @@ MonoBehaviour:
   _zoomCompletion: 0.5
   _stepSize: 20
   _zoomDampening: 75
-  _minHeight: 45
-  _maxHeight: 60
   _zoomSpeed: 20
   _maxRotationSpeed: 1
-  _edgeTolerance: 0.05
-  _useScreenEdge: 1
 --- !u!114 &181587364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -514,6 +510,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 181587362}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1084689153
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1084689155}
+  - component: {fileID: 1084689154}
+  m_Layer: 0
+  m_Name: SceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1084689154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084689153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f47ebf1738334d1468917b66e1775318, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  _surface: {fileID: 1400168703}
+--- !u!4 &1084689155
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084689153}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1400168699
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,6 +566,7 @@ GameObject:
   - component: {fileID: 1400168700}
   - component: {fileID: 1400168702}
   - component: {fileID: 1400168701}
+  - component: {fileID: 1400168703}
   m_Layer: 6
   m_Name: Terrain_0_0_046664df-3511-48bc-8159-238ad9fb32ae
   m_TagString: Untagged
@@ -607,6 +649,38 @@ Terrain:
   m_EnableHeightmapRayTracing: 1
   m_EnableTreesAndDetailsRayTracing: 0
   m_TreeMotionVectorModeOverride: 3
+--- !u!114 &1400168703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400168699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: f2e63899866ecff4e8fe5591088a9e2c, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &1808759021
 GameObject:
   m_ObjectHideFlags: 0
@@ -1061,8 +1135,8 @@ MonoBehaviour:
   - {fileID: 919132149155446097, guid: 2bba0977e1d4c9c48acb91eca974675e, type: 3}
   - {fileID: 919132149155446097, guid: 9284db406866aed49b754945a34e1f82, type: 3}
   - {fileID: 919132149155446097, guid: e677c3dfd713e3b4ab217cc1c32d18cd, type: 3}
-  treeCount: 0
-  bushCount: 0
+  treeCount: 1000
+  bushCount: 1000
   maxSlope: 60
   plantsOffsetX: 0
   plantsOffsetY: 0
@@ -1124,3 +1198,4 @@ SceneRoots:
   - {fileID: 2013410475}
   - {fileID: 1969159679}
   - {fileID: 181587362}
+  - {fileID: 1084689155}

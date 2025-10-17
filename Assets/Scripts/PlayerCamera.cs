@@ -26,10 +26,6 @@ public class PlayerCamera : MonoBehaviour
     [Header("Rotation")]
     [SerializeField] private float _maxRotationSpeed = 1f;
 
-    [Header("ScreenEdgeMotion")] 
-    [SerializeField, Range(0.0f, 0.1f)] private float _edgeTolerance = 0.05f;
-    [SerializeField] private bool _useScreenEdge = true;
-
     private Vector3 _targetPosition;
     
     private Vector3 _horizontalVelocity;

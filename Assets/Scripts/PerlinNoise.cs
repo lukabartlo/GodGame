@@ -24,7 +24,7 @@ public class PerlinTerrain : MonoBehaviour
     [SerializeField] private float plantsOffsetX;
     [SerializeField] private float plantsOffsetY;
 
-    void Start()
+    void Awake()
     {
         if (randomizeOffset)
         {
@@ -115,7 +115,6 @@ public class PerlinTerrain : MonoBehaviour
         int height = terrainData.alphamapHeight;
         var treePositions = new System.Collections.Generic.List<Vector3>();
         int spawnedTree = 0;
-        int targetLayer = 1;
         
         for (int x = 0; x < width && spawnedTree < treeCount; x++)
         {
@@ -235,8 +234,8 @@ public class PerlinTerrain : MonoBehaviour
 
         float[,,] splatmap = terrainData.GetAlphamaps(mapX, mapZ, 1, 1);
 
-        int targetIndex = 1; //grass
-        float targetTreshold = 0.95f; //target a depasser
+        int targetIndex = 1;
+        float targetTreshold = 0.95f;
 
         return splatmap[0, 0, targetIndex] > targetTreshold;
     }
